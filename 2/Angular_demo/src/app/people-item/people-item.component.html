@@ -1,0 +1,24 @@
+<p 
+  appColors
+  [ngClass]="{ 'instructor-style':person.instructor }"
+>
+    <span class="title">PERSON</span> <br>
+    name: <span [textContent] = "person.name"></span><br>
+    added_on: {{ person.added_on | date:'MMM d, yyyy' | uppercase}} <br> <!-- ADD -->
+    <span>FAVOURITE</span> <br>
+    <!-- age: {{ age(people_array[0].added_on) }} <br> -->
+    Instructor: <span *ngIf="person.instructor; then ins else notins" ></span>
+    <!-- {{ person.instructor }} &check;  -->
+    <br>
+    <ng-template #ins>&check;</ng-template> <!-- variale dec -->
+    <ng-template #notins>&#10005;</ng-template>
+    <span id ="butt" class="d-grid gap-2 col-12">
+    <button 
+      id="delete"
+      class="btn btn-outline-danger"
+      (click)="onDelete($event,person.name)"
+    > DELETE </button>
+    <button class="btn btn-outline-primary" (click)="onEdit($event,person.name)">EDIT</button>
+    </span>
+</p>
+

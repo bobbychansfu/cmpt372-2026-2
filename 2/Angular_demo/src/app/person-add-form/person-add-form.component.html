@@ -1,0 +1,17 @@
+<form 
+    [formGroup]="form"   
+    (ngSubmit)="onSubmit(form.value)" 
+>
+<fieldset>
+    <legend>ADD PERSON</legend>
+    <input name="name" type="text" placeholder="NAME" formControlName="name"> <br>
+    Instructor <input name="instructor_checkbox" type="checkbox" formControlName="instructor"> <br>
+    <button class="btn btn-outline-primary" [disabled]="!form.valid">SAVE</button>
+</fieldset>
+
+<span *ngIf="form.controls['name'].errors as name_errors"> {{ name_errors | json }} </span> 
+
+</form>
+
+
+    

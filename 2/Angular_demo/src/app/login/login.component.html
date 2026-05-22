@@ -1,0 +1,40 @@
+<section class="auth-page">
+  <div class="auth-card login-card">
+    <h2 class="auth-title">Login</h2>
+    <p class="auth-subtitle">Sign in to continue.</p>
+
+    <div *ngIf="error" class="message-error">{{ error }}</div>
+
+    <form class="auth-form" (ngSubmit)="onSubmit()">
+      <div class="form-field">
+        <label class="form-label" for="username">Username</label>
+      <input
+        class="form-input"
+        id="username"
+        type="text"
+        [(ngModel)]="username"
+        name="username"
+        placeholder="Enter username"
+        required
+      />
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="password">Password</label>
+      <input
+        class="form-input"
+        id="password"
+        type="password"
+        [(ngModel)]="password"
+        name="password"
+        placeholder="Enter password"
+        required
+      />
+      </div>
+
+      <button class="button-primary" type="submit">Login</button>
+    </form>
+
+    <p class="auth-note">Demo credentials: <strong>admin</strong> / <strong>password</strong></p>
+  </div>
+</section>
