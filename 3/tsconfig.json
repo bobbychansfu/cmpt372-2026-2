@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true, // add this line to enable ES module interoperability
+    "types": ["node"],
+  }
+}

@@ -6,3 +6,5 @@ build
 *.bak
 *.swp
 .DS_Store
+.env
+package-lock.json
