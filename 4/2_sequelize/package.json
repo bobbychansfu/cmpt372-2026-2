@@ -1,7 +1,7 @@
 {
-  "name": "0_pg_express",
+  "name": "2_sequelize_express",
   "version": "1.0.0",
-  "description": "",
+  "description": "Companion to 0_pg_express - same Express app and helpers interface, but the database layer is rewritten using the Sequelize ORM instead of raw pg queries.",
   "license": "ISC",
   "author": "",
   "type": "commonjs",
@@ -11,16 +11,15 @@
     "dev": "tsx watch server_express.ts"
   },
   "dependencies": {
+    "dotenv": "^16.4.5",
     "express": "^5.2.1",
-    "express-fileupload": "^1.5.2",
     "pg": "^8.21.0",
-    "serve-index": "^1.9.2"
+    "sequelize": "^6.37.5"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
-    "@types/express-fileupload": "^1.5.1",
     "@types/node": "^25.9.2",
-    "@types/pg": "^8.20.0",
-    "@types/serve-index": "^1.9.4"
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
   }
 }
