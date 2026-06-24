@@ -1,0 +1,25 @@
+{
+  "name": "users_mongoose_express",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "server_express.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsx watch server_express.ts"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "express-fileupload": "^1.5.2",
+    "mongoose": "^8.0.0",
+    "serve-index": "^1.9.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/express-fileupload": "^1.5.1",
+    "@types/node": "^25.9.2",
+    "@types/serve-index": "^1.9.4"
+  }
+}
