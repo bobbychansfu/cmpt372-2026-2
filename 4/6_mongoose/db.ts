@@ -11,13 +11,15 @@ const userSchema = new mongoose.Schema({
     },
     age: {
         type: Number,
+        min: 0,
+        max: 120,
         required: true
     }
 });
 
 // Pic schema - not used in this project, but included for your reference
 const picSchema = new mongoose.Schema({
-    data: Buffer
+    data: mongoose.Schema.Types.Buffer
 });
 
 // Models
@@ -54,7 +56,7 @@ const helpers = {
         try {
             await mongoose.connect(mongoDbPath, {
                 maxPoolSize: 10
-            });
+            } as mongoose.ConnectOptions);
             console.log('Connected to MongoDB');
         } catch (error) {
             console.error('MongoDB connection failed:', error);
