@@ -48,3 +48,9 @@ export const helpers = {
     await pool.end();
   },
 };
+
+// Initialize the database table on module load
+(async () => {
+  await helpers.init();
+})();
+
