@@ -38,6 +38,24 @@ app.get('/', async (req: Request, res: Response) => {
   }
 });
 
+app.get('/users', async (req: Request, res: Response) => {
+  try {
+    const result = await pool.query(`SELECT * FROM users`);
+    res.json(result.rows);
+  } catch (e) {
+    res.end(String(e));
+  }
+});
+
+app.post('/users', async (req: Request, res: Response) => {
+  const { fname, lname, age } = req.body;
+  try {
+    await pool.query(`INSERT INTO users (fname, lname, age) VALUES ($1, $2, $3)`, [fname, lname, age]);
+    res.send("User added successfully!");
+  } catch (e) {
+    res.end(String(e));
+  }
+});
 
 app.listen(PORT, '0.0.0.0');
 console.log(`Running on http://0.0.0.0:${PORT}`);
