@@ -1,0 +1,19 @@
+runtime: nodejs
+env: flex
+
+runtime_config:
+  operating_system: ubuntu22
+  runtime_version: "20"
+
+# Keep a client's requests (incl. socket.io long-polling fallback) on the same instance
+network:
+  session_affinity: true
+
+# Single instance so the in-memory `clients` counter and broadcasts work.
+# For real scaling you'd use @socket.io/redis-adapter instead.
+manual_scaling:
+  instances: 1
+
+resources:
+  cpu: 1
+  memory_gb: 0.5
