@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dexie.js / IndexedDB demo — CMPT 372</title>
+
+  <script src="https://unpkg.com/dexie@4/dist/dexie.js"></script>
+
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 520px; margin: 2rem auto; }
+    input { padding: 6px; }
+    button { padding: 6px 10px; cursor: pointer; }
+    li { margin: 4px 0; }
+    .hint { color: #666; font-size: 13px; }
+    code { background: #eee; padding: 1px 4px; border-radius: 3px; }
+  </style>
+</head>
+<body>
+  <h1>Notes (stored in IndexedDB)</h1>
+
+  <p class="hint">
+    Add a few notes, then <strong>reload the page</strong> — they persist,
+    because they live in IndexedDB, not in a JS variable.
+  </p>
+
+  <form id="form">
+    <input id="title" placeholder="Type a note" autocomplete="off" required />
+    <button type="submit">Add</button>
+    <button type="button" id="clear">Clear all</button>
+  </form>
+
+  <ul id="list"></ul>
+
+  <script>
+    // 1. Define the database and its schema.
+    const db = new Dexie('notesApp');
+    db.version(1).stores({ notes: '++id, title' }); 
+
+    const listEl = document.getElementById('list');
+
+    // 2. Read: load all notes and render them.
+    async function render() {
+      const notes = await db.notes.toArray();
+      listEl.innerHTML = '';
+      for (const note of notes) {
+        const li = document.createElement('li');
+        li.textContent = note.title + '  ';
+        const del = document.createElement('button');
+        del.textContent = '✕';
+        del.onclick = async () => { await db.notes.delete(note.id); render(); };
+        li.appendChild(del);
+        listEl.appendChild(li);
+      }
+    }
+
+    // 3. Create a new note.
+    document.getElementById('form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const title = document.getElementById('title').value.trim();
+      if (title) {
+        await db.notes.add({ title });
+        document.getElementById('title').value = '';
+        render();
+      }
+    });
+
+    // 4. Clear all notes.
+    document.getElementById('clear').addEventListener('click', async () => {
+      await db.notes.clear();
+      render();
+    });
+
+    render(); // initial load
+  </script>
+</body>
+</html>

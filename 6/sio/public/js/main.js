@@ -38,4 +38,7 @@ function printMessage(message){
 	var p = document.createElement("p")
 	p.innerHTML = message
 	document.querySelector("div#messages").appendChild(p)
+	
+	var messagesDiv = document.querySelector("div#messages")
+	messagesDiv.scrollTop = messagesDiv.scrollHeight
 }

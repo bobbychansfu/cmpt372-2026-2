@@ -45,8 +45,8 @@ app.use(
   session({
     name: 'session',
     secret: 'secret string', // use an env var in production
-    resave: false,
-    saveUninitialized: false,
+    resave: false, 
+    saveUninitialized: false, 
     cookie: {
       httpOnly: true,
       maxAge: 30 * 60 * 1000, // 30 minutes
@@ -67,6 +67,7 @@ function isLoggedIn(req: Request, res: Response, next: NextFunction) {
 // POST /login  { username, password }
 app.post('/login', (req: Request, res: Response) => {
   const { username, password } = req.body ?? {};
+  // database call
   const found = users.find(
     (u) => u.username === username && u.password === password
   );
@@ -94,6 +95,10 @@ app.post('/logout', (req: Request, res: Response) => {
 // GET /me — protected: returns the current logged-in user
 app.get('/me', isLoggedIn, (req: Request, res: Response) => {
   return res.json({ user: req.session.user });
+});
+
+app.get('/anotherprotectedroute', isLoggedIn, (req: Request, res: Response) => {
+  return res.json({ message: 'This is another protected route' });
 });
 
 app.listen(PORT, () => {
