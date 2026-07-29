@@ -3,6 +3,8 @@ import type { Request, Response, NextFunction } from "express";
 import cors from "cors"; 
 import session from "express-session";
 
+import { db } from "./db.ts";
+
 export interface User {
   fname: string;
   lname: string;
@@ -169,6 +171,38 @@ app.post("/login", (req: Request<object, string, LoginBody>, res: Response) => {
     res.send("You are authenticated");
   } else {
     res.send("You are not authenticated");
+  }
+});
+
+/**
+ * @openapi
+ * /users-api/db/{fname}:
+ *   get:
+ *     summary: Fetch one user from the database
+ *     tags: [Users]
+ *     parameters:
+ *       - in: path
+ *         name: fname
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: The matching user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       404:
+ *         description: No user with that first name
+ */
+app.get("/users-api/db/:fname", async (req: Request<{ fname: string }>, res: Response) => {
+  // makes db helper call
+  const user = await db.getUserByName(req.params.fname);
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(404).json({ error: "User not found" });
   }
 });
 
